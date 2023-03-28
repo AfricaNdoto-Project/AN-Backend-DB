@@ -39,14 +39,16 @@ const Member = connection.define(
         adress: {
             type: DataTypes.STRING
         },
+        role: {
+            type: DataTypes.ENUM('admin','donor', 'volunteer', 'volunteer_donor' )
+        },
         createdAt: {
             type: DataTypes.STRING,
             defaultValue: function () {
                 return new Date()
             }
 		},
-    },
-    {updatedAt: false}
+    }
 )
 
 
