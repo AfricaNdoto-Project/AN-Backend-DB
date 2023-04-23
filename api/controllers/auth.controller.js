@@ -6,14 +6,23 @@ const Proffesional = require('../models/professional.model')
 const signUp = async (req, res) => {
     try {
         req.body.password = bcrypt.hashSync(req.body.password, 10)
+        const findMember = await Member.findOne({
+            where:
+            {
+                idNumber: req.body.idNumber
+            }
+        })
+        if (findMember) {
+            return res.status(500).send('Error: Member already exists')
+        }
         if (req.body.role === 'admin') {
             return res.status(500).json('You can\'t declare yourself as an admin')
         }
         const member = await Member.create(req.body)
-        if (req.body.role === 'donor') {
-            await member.createDonor()
+        if (req.body.role === 'donor' || req.body.role === 'volunteer_donor') {
+                await member.createDonor()
         }
-        if (req.body.role === 'volunteer') {
+        if (req.body.role === 'volunteer' || req.body.role === 'volunteer_donor') {
             const profession = req.body.profession;
             const professional = await Proffesional.findAll({
                 where: {
@@ -23,7 +32,7 @@ const signUp = async (req, res) => {
             await member.createVolunteer({
                 memberId: member.id,
                 professionalId: professional[0].id
-            });
+            })
         }
         return res.status(200).json(member)
     } catch (error) {
