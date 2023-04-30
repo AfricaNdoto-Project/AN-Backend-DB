@@ -5,7 +5,8 @@ const {
     getOneProject,
     createProject,
     updateProject,
-    deleteProject
+    deleteProject,
+    getProjectByVolunteer
 } = require('../controllers/project.controller')
 
 const {
@@ -21,6 +22,7 @@ const {
 
 router.get('/', getAllProjects)
 router.get('/:id', getOneProject)
+router.get('/byVolunteer',checkAuth, checkVolunteer, getProjectByVolunteer)
 router.post('/', checkAuth, checkVolunteer, createProject)
 router.put('/:id', checkAuth, checkAdmin, updateProject)
 router.delete('/:id', checkAuth, checkAdmin, deleteProject)
