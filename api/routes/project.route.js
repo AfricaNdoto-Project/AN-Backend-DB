@@ -17,12 +17,12 @@ const {
 
 
 
+router.get('/byVolunteer',checkAuth, getProjectByVolunteer)
 
 
 
 router.get('/', getAllProjects)
 router.get('/:id', getOneProject)
-router.get('/byVolunteer',checkAuth, checkVolunteer, getProjectByVolunteer)
 router.post('/', checkAuth, checkVolunteer, createProject)
 router.put('/:id', checkAuth, checkAdmin, updateProject)
 router.delete('/:id', checkAuth, checkAdmin, deleteProject)

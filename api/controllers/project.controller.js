@@ -96,20 +96,14 @@ async function deleteProject(req, res) {
 
 async function getProjectByVolunteer(req, res) {
     try {
-        console.log(res.locals.member.id)
-
         const volunteer = await Volunteer.findOne({
             where: {
                 memberId: res.locals.member.id
             }
         })
-        const project = await Project.findAll({
-            where: {
-                volunteerId: volunteer.id
-            }
-        })
-        if (project) {
-            return res.status(200).json(project)
+        const projects = await volunteer.getProjects()
+        if (projects) {
+            return res.status(200).json(projects)
         } else {
             return res.status(404).send('Project not found')
         }
