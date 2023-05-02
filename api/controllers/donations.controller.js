@@ -99,11 +99,22 @@ async function deleteDonation(req, res) {
 
 async function getMyDonations(req, res) {
     try {
-        const donations = await Donations.findAll({
-            where: res.locals.donations.donorId
+        const donor = await Donor.findOne({
+            where: {
+                memberId: res.locals.member.id
+            }
         })
+        const donations = await Donations.findAll({
+            where: {
+                donorId: donor.id
+            }
+        })
+        const myDonations = {
+            name: res.locals.member.name,
+            donations: donations
+        }
         if (donations) {
-            return res.status(200).json(donations)
+            return res.status(200).json(myDonations)
         } else {
             return res.status(404).send('No Donations found')
         }
