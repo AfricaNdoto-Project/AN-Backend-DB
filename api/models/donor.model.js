@@ -8,13 +8,8 @@ const Donor = connection.define(
 		bank_account: {
 			type: DataTypes.STRING,
 			allowNull: true,
-            validate: {
-                is: {
-                    args: /^[A-Z]{2}(?:[ ]?[0-9]){18,24}$/,
-
-                    msg: 'Bank account has not a valid value',
-                },
-            },
+           
+            
 		}
     }
 )
