@@ -5,7 +5,8 @@ const {
     deleteDonor,
     updateDonor,
     createDonor,
-    getOneDonor
+    getOneDonor,
+    getOneDonorByMemberId
 } = require('../controllers/donor.controller')
 
 const {
@@ -16,6 +17,7 @@ const {
 //Admin
 router.get('/', checkAuth, checkAdmin, getAllDonors)
 router.get('/:id', checkAuth, checkAdmin, getOneDonor)
+router.get('/getDonorByMemberId/:memberId', checkAuth, getOneDonorByMemberId)
 router.post('/', checkAuth, checkAdmin, createDonor)
 router.put('/:id', checkAuth, checkAdmin, updateDonor)
 router.delete('/:id', checkAuth, checkAdmin, deleteDonor)

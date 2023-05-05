@@ -27,6 +27,22 @@ async function getOneVolunteer(req, res) {
         res.status(500).send(error.message)
     }
 }
+async function getOneVolunteerByMemberId(req, res) {
+    try {
+        const donor = await Volunteer.findOne({
+            where: {
+                memberId: req.params.memberId
+            }
+        })
+        if (donor) {
+            return res.status(200).json(donor)
+        } else {
+            return res.status(404).send('Donor not found')
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
 
 async function createVolunteer(req, res) {
     try {
@@ -98,5 +114,6 @@ module.exports = {
     updateVolunteer,
     createVolunteer,
     getOneVolunteer,
-    getMyProjects
+    getMyProjects,
+    getOneVolunteerByMemberId
 }
