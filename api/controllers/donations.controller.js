@@ -54,7 +54,9 @@ async function createDonation(req, res) {
         })
         const amount = req.body.amount
         await donation.addProject(project)
-        await product.addDonation(donation)
+        if(product) {
+            await product.addDonation(donation)
+        }
         const currentCollect = project.collect;
         const newCollect = currentCollect + amount;
         await Project.update({ collect: newCollect }, {
