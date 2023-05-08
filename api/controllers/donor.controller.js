@@ -27,6 +27,23 @@ async function getOneDonor(req, res) {
     }
 }
 
+async function getOneDonorByMemberId(req, res) {
+    try {
+        const donor = await Donor.findOne({
+            where: {
+                memberId: req.params.memberId
+            }
+        })
+        if (donor) {
+            return res.status(200).json(donor)
+        } else {
+            return res.status(404).send('Donor not found')
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
+
 async function createDonor(req, res) {
     try {
         const donor = await Donor.create(req.body)
@@ -102,5 +119,6 @@ module.exports = {
     updateDonor,
     createDonor,
     getOneDonor,
-    getDonorDonations
+    getDonorDonations,
+    getOneDonorByMemberId
 }

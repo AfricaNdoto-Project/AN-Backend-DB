@@ -5,7 +5,6 @@ const connection = new Sequelize(process.env.DIALECT+'://'+process.env.DB_USERNA
     dialect: process.env.DIALECT,
     port: process.env.DB_PORT,
     logging:false
-
 })
 
 async function checkConnection() {
