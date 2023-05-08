@@ -57,7 +57,8 @@ const login = async (req, res) => {
                 return res.status(403).send('Error: Empty mail or password')
             }
             const token = jwt.sign({ email: member.email }, 'secret', { expiresIn: '7h' })
-            return res.status(200).json({ token })
+            const role =  member.role
+            return res.status(200).json({ token, role })
         })
     }
     catch (err) {
