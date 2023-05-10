@@ -44,7 +44,7 @@ async function createDonation(req, res) {
         })
         const project = await Project.findOne({
             where: {
-                id: req.body.projectId
+                name: req.body.projectName
             }
         })
         const product = await Product.findOne({
@@ -52,8 +52,18 @@ async function createDonation(req, res) {
                 name: req.body.name
             }
         })
+        const amount = req.body.amount
         await donation.addProject(project)
-        await product.addDonation(donation)
+        if(product) {
+            await product.addDonation(donation)
+        }
+        const currentCollect = project.collect;
+        const newCollect = currentCollect + amount;
+        await Project.update({ collect: newCollect }, {
+            where: {
+                id: project.id
+            }
+        })
         return res.status(200).json({ message: 'Donation created', donation: donation })
     } catch (error) {
         res.status(500).send(error.message)

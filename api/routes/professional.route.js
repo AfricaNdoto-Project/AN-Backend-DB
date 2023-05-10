@@ -13,7 +13,7 @@ const {
     checkAdmin 
 } = require('../middlewares/auth')
 
-
+router.get('/selectProffesion', getAllProfessionals)
 router.get('/', checkAuth, checkAdmin, getAllProfessionals)
 router.get('/:id', checkAuth, checkAdmin, getOneProfessional)
 router.post('/', checkAuth, createProfessional)
