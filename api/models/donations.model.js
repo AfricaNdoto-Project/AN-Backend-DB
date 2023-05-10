@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize')
 const { connection } = require('../../database')
 
+
 const Donations = connection.define(
 	'donations',
 	{
@@ -22,7 +23,6 @@ const Donations = connection.define(
         }
     }
 )
-
 
 
 module.exports = Donations

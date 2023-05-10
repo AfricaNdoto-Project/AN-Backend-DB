@@ -1,19 +1,25 @@
 const router = require('express').Router()
 
-const { 
+const {
     getAllVolunteer,
     deleteVolunteer,
     updateVolunteer,
     createVolunteer,
-    getOneVolunteer } = require('../controllers/volunteer.controller')
+    getOneVolunteer,
+    getOneVolunteerByMemberId,
+    getMyProjects } = require('../controllers/volunteer.controller')
 
-const { checkAuth, checkAdmin, checkVolunteerDonor } = require('../middlewares/auth')
+const { checkAuth, checkAdmin, checkVolunteer } = require('../middlewares/auth')
+//Volunteer all projects
+router.get('/myProjects', checkAuth, checkVolunteer, getMyProjects)
 
 
+//Admin
 router.get('/', checkAuth, checkAdmin, getAllVolunteer)
-router.get('/:id', checkAuth, checkAdmin, createVolunteer, checkVolunteerDonor, getOneVolunteer)
+router.get('/:id', checkAuth, checkVolunteer, getOneVolunteer)
+router.get('/getVolunteerByMemberId/:memberId', checkAuth, getOneVolunteerByMemberId)
 router.post('/', checkAuth, checkAdmin, createVolunteer)
-router.put('/:id', checkAuth, checkAdmin, createVolunteer, checkVolunteerDonor, updateVolunteer)
-router.delete('/:id', checkAuth, checkAdmin, createVolunteer, checkVolunteerDonor, deleteVolunteer)
+router.put('/:id', checkAuth, checkVolunteer, updateVolunteer)
+router.delete('/:id', checkAuth, checkVolunteer, deleteVolunteer)
 
 module.exports = router

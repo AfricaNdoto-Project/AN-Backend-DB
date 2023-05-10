@@ -1,9 +1,9 @@
 const EventCategory = require('../models/event_category.model')
 
+
 async function getAllCategories(req, res) {
     try {
         const categories = await EventCategory.findAll()
-
         if (categories) {
             return res.status(200).json(categories)
         } else {
@@ -18,7 +18,6 @@ async function getAllCategories(req, res) {
 async function getOneCategory(req, res) {
     try {
         const category = await EventCategory.findByPk(req.params.categoryId)
-
         if (category) {
             return res.status(200).json(category)
         } else {
@@ -36,7 +35,6 @@ async function updateCategory(req, res) {
                 id: req.params.categoryId,
             }
         })
-
         if (category) {
             return res.status(200).send('Category updated')
         } else {
@@ -53,7 +51,6 @@ async function createCategory(req, res) {
         const category = await EventCategory.create(req.body)
         if (category) {
             return res.status(200).json({ message: 'Category created', category: category })
-
         } else {
             return res.status(404).send('Cannot create category')
         }
@@ -70,7 +67,6 @@ async function deleteCategory(req, res) {
                 id: req.params.categoryId
             }
         })
-
         if (category) {
             return res.status(200).json('Category deleted')
         } else {
@@ -80,8 +76,6 @@ async function deleteCategory(req, res) {
         return res.status(500).send(err.message)
     }
 }
-
-
 
 
 module.exports = {

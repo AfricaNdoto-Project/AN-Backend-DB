@@ -1,8 +1,10 @@
 const Equipment = require('../models/equipment.model')
 
+
 async function getAllEquipments(req, res) {
     try {
         const equipments = await Equipment.findAll({ paranoid: false })
+
         if (equipments) {
             return res.status(200).json(equipments)
         } else {
@@ -69,6 +71,7 @@ async function deleteEquipment(req, res) {
         return res.status(500).send(error.message)
     }
 }
+
 
 module.exports = {
     getAllEquipments,

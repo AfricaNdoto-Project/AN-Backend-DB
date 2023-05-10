@@ -1,4 +1,6 @@
+const Project = require('../models/project.model')
 const Volunteer = require('../models/volunteer.model')
+
 
 async function getAllVolunteer(req, res) {
     try {
@@ -20,6 +22,22 @@ async function getOneVolunteer(req, res) {
             return res.status(200).json(volunteer)
         } else {
             return res.status(404).send('Volunteer not found')
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
+async function getOneVolunteerByMemberId(req, res) {
+    try {
+        const donor = await Volunteer.findOne({
+            where: {
+                memberId: req.params.memberId
+            }
+        })
+        if (donor) {
+            return res.status(200).json(donor)
+        } else {
+            return res.status(404).send('Donor not found')
         }
     } catch (error) {
         res.status(500).send(error.message)
@@ -70,7 +88,24 @@ async function deleteVolunteer(req, res) {
     }
 }
 
+async function getMyProjects(req, res) {
+    try {
+        const volunteer = await Volunteer.findByPk(res.locals.member.id)
 
+        const projects = await Project.findAll({
+            where: {
+                
+            }
+        })
+        if (volunteer) {
+            return res.status(200).json(volunteer)
+        } else {
+            return res.status(404).send('No Volunteers found')
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
 
 
 module.exports = {
@@ -78,5 +113,7 @@ module.exports = {
     deleteVolunteer,
     updateVolunteer,
     createVolunteer,
-    getOneVolunteer
+    getOneVolunteer,
+    getMyProjects,
+    getOneVolunteerByMemberId
 }

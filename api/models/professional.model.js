@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize')
 const { connection } = require('../../database')
 
+
 const Professional = connection.define(
 	'professional',
 	{
@@ -35,5 +36,6 @@ const Professional = connection.define(
     {createdAt: false },
     {updatedAt: false}
 )
+
 
 module.exports = Professional

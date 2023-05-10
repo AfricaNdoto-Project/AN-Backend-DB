@@ -17,8 +17,6 @@ const Donations = require('../api/models/donations.model')
 
 
 
-
-
 function addRelationsToModels() {
 	try {
         // Event_category_id

@@ -1,19 +1,31 @@
 const router = require('express').Router()
 
-const { 
+const {
     getAllDonations,
     deleteDonation,
     updateDonation,
     createDonation,
-    getOneDonation
- } = require('../controllers/donations.controller')
-const { checkAdmin, checkAuth, checkDonor, checkVolunteerDonor } = require('../middlewares/auth')
+    getOneDonation,
+    getMyDonations,
+} = require('../controllers/donations.controller')
+
+const {
+    checkAdmin,
+    checkAuth,
+    checkDonor 
+} = require('../middlewares/auth')
+
+//Donors
+router.get('/myDonations', checkAuth, checkDonor, getMyDonations)
 
 
-router.get('/',checkAuth, checkAdmin, getAllDonations)
-router.get('/:id', checkAuth, checkAdmin, checkDonor, checkVolunteerDonor, getOneDonation)
-router.post('/', createDonation)
+//Admin
+router.get('/', checkAuth, checkAdmin, getAllDonations)
+
+router.get('/:id', checkAuth, checkAdmin, getOneDonation)
+router.post('/', checkAuth, checkDonor, createDonation)
 router.put('/:id', checkAuth, checkAdmin, updateDonation)
 router.delete('/:id', checkAuth, checkAdmin, deleteDonation)
+
 
 module.exports = router

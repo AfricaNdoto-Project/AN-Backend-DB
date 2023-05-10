@@ -1,9 +1,9 @@
 const Product = require('../models/product.model')
 
+
 async function getAllProducts(req, res) {
     try {
         const products = await Product.findAll()
-
         if (products) {
             return res.status(200).json(products)
         } else {
@@ -14,11 +14,9 @@ async function getAllProducts(req, res) {
     }
 }
 
-
 async function getOneProduct(req, res) {
     try {
         const product = await Product.findByPk(req.params.productId)
-
         if (product) {
             return res.status(200).json(product)
         } else {
@@ -36,7 +34,6 @@ async function updateProduct(req, res) {
                 id: req.params.productId,
             }
         })
-
         if (product) {
             return res.status(200).send('Product updated')
         } else {
@@ -46,7 +43,6 @@ async function updateProduct(req, res) {
         return res.status(500).send(err.message)
     }
 }
-
 
 async function createProduct(req, res) {
     try {
@@ -62,7 +58,6 @@ async function createProduct(req, res) {
     }
 }
 
-
 async function deleteProduct(req, res) {
     try {
         const product = await Product.destroy({
@@ -70,7 +65,6 @@ async function deleteProduct(req, res) {
                 id: req.params.productId
             }
         })
-
         if (product) {
             return res.status(200).json('Product deleted')
         } else {
@@ -80,9 +74,6 @@ async function deleteProduct(req, res) {
         return res.status(500).send(err.message)
     }
 }
-
-
-
 
 
 module.exports = {

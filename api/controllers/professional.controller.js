@@ -1,8 +1,10 @@
 const Professional = require('../models/professional.model')
 
+
 async function getAllProfessionals(req, res) {
     try {
         const professionals = await Professional.findAll({ paranoid: false })
+
         if (professionals) {
             return res.status(200).json(professionals)
         } else {
@@ -69,6 +71,7 @@ async function deleteProfessional(req, res) {
         return res.status(500).send(error.message)
     }
 }
+
 
 module.exports = {
     getAllProfessionals,

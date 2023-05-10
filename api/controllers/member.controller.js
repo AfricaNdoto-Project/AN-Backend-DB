@@ -1,4 +1,8 @@
 const Member = require('../models/member.model')
+const Volunteer = require('../models/volunteer.model')
+const Professional = require('../models/professional.model')
+
+
 
 async function getAllMembers(req, res) {
     try {
@@ -70,7 +74,6 @@ async function deleteMember(req, res) {
     }
 }
 
-
 async function getMyMember(req, res) {
     try {
         const member = await Member.findByPk(res.locals.member.id)
@@ -83,8 +86,6 @@ async function getMyMember(req, res) {
         res.status(500).send(error.message)
     }
 }
-
-
 
 async function updateMyMember(req, res) {
     try {
@@ -122,6 +123,31 @@ async function deleteMyMember(req, res) {
 }
 
 
+const getMemberProjects = async (req, res) => {
+    try {
+        const members = await Member.findAll({
+            include: [
+              {
+                model: Volunteer,
+                include: [
+                  {
+                    model: Professional
+                  }
+                ]
+              }
+            ]
+          })
+        if (members) {
+            return res.status(200).json(members)
+        } else {
+            return res.status(404).send('Members not found')
+        }
+    } catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
+
+
 module.exports = {
     getAllMembers,
     deleteMember,
@@ -130,5 +156,6 @@ module.exports = {
     getOneMember,
     getMyMember,
     updateMyMember,
-    deleteMyMember
+    deleteMyMember,
+    getMemberProjects
 }

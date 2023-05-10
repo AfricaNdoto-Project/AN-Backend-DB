@@ -1,4 +1,4 @@
-const router = require('express').Router() 
+const router = require('express').Router()
 
 
 router.use('/member', require('./member.route'))

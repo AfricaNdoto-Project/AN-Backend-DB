@@ -1,7 +1,17 @@
 const router = require('express').Router()
 
-const { getAllProducts, getOneProduct, createProduct, updateProduct, deleteProduct } = require('../controllers/product.controller')
-const { checkAuth, checkAdmin } = require('../middlewares/auth')
+const {
+    getAllProducts,
+    getOneProduct,
+    createProduct,
+    updateProduct,
+    deleteProduct 
+} = require('../controllers/product.controller')
+
+const {
+    checkAuth,
+    checkAdmin 
+} = require('../middlewares/auth')
 
 
 router.get('/', getAllProducts)

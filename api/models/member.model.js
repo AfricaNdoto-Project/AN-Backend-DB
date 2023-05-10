@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize')
 const { connection } = require('../../database')
 
+
 const Member = connection.define(
 	'member',
 	{
@@ -36,7 +37,7 @@ const Member = connection.define(
         phone: {
 			type: DataTypes.INTEGER,
         },
-        adress: {
+        address: {
             type: DataTypes.STRING
         },
         role: {
@@ -44,7 +45,6 @@ const Member = connection.define(
         }
     }
 )
-
 
 
 module.exports = Member

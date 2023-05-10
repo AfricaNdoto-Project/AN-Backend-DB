@@ -1,12 +1,14 @@
 const { DataTypes } = require('sequelize')
 const { connection } = require('../../database')
 
+
 const Product = connection.define(
     'product',
     {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             validate: {
                 notEmpty: {
                     msg: 'Please, don\'t leave the field empty'
@@ -55,7 +57,6 @@ const Product = connection.define(
     { createdAt: false },
     { updatedAt: false }
 )
-
 
 
 module.exports = Product

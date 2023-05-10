@@ -1,4 +1,8 @@
 const Donations = require('../models/donations.model')
+const Donor = require('../models/donor.model')
+const Project = require('../models/project.model')
+const Product = require('../models/product.model')
+
 
 async function getAllDonations(req, res) {
     try {
@@ -28,7 +32,38 @@ async function getOneDonation(req, res) {
 
 async function createDonation(req, res) {
     try {
-        const donation = await Donations.create(req.body)
+        const donor = await Donor.findOne({
+            where: {
+                memberId: res.locals.member.id
+            }
+        })
+        const donation = await Donations.create({
+            amount: req.body.amount,
+            type: req.body.type,
+            donorId: donor.id
+        })
+        const project = await Project.findOne({
+            where: {
+                name: req.body.projectName
+            }
+        })
+        const product = await Product.findOne({
+            where: {
+                name: req.body.name
+            }
+        })
+        const amount = req.body.amount
+        await donation.addProject(project)
+        if(product) {
+            await product.addDonation(donation)
+        }
+        const currentCollect = project.collect;
+        const newCollect = currentCollect + amount;
+        await Project.update({ collect: newCollect }, {
+            where: {
+                id: project.id
+            }
+        })
         return res.status(200).json({ message: 'Donation created', donation: donation })
     } catch (error) {
         res.status(500).send(error.message)
@@ -72,11 +107,38 @@ async function deleteDonation(req, res) {
 
 
 
+async function getMyDonations(req, res) {
+    try {
+        const donor = await Donor.findOne({
+            where: {
+                memberId: res.locals.member.id
+            }
+        })
+        const donations = await Donations.findAll({
+            where: {
+                donorId: donor.id
+            }
+        })
+        const myDonations = {
+            name: res.locals.member.name,
+            donations: donations
+        }
+        if (donations) {
+            return res.status(200).json(myDonations)
+        } else {
+            return res.status(404).send('No Donations found')
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
+
 
 module.exports = {
     getAllDonations,
     deleteDonation,
     updateDonation,
     createDonation,
-    getOneDonation
+    getOneDonation,
+    getMyDonations
 }

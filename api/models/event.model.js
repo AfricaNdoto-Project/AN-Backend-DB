@@ -1,17 +1,18 @@
 const { DataTypes } = require('sequelize')
 const { connection } = require('../../database')
 
+
 const Event = connection.define(
     'event',
     {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             validate: {
                 notEmpty: {
                     msg: 'Please, don\'t leave the field empty'
                 }
-                
             }
         },
         description: {
@@ -21,7 +22,6 @@ const Event = connection.define(
                 notEmpty: {
                     msg: 'Please, add a brief description of the event'
                 }
-                
             }
         },
         address: {
@@ -31,7 +31,6 @@ const Event = connection.define(
                 notEmpty: {
                      msg: 'Provide an address where arrange the event'
                 }
-               
             }
         }, 
         start_date: {
@@ -51,10 +50,10 @@ const Event = connection.define(
                 notEmpty: {
                     msg: 'Please, add the end date for the event'
                 }
-                
             }
         },
     }
 )
+
 
 module.exports = Event
