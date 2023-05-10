@@ -37,7 +37,7 @@ const Member = connection.define(
         phone: {
 			type: DataTypes.INTEGER,
         },
-        adress: {
+        address: {
             type: DataTypes.STRING
         },
         role: {
