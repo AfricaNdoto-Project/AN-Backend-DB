@@ -6,7 +6,7 @@ const {
     updateDonation,
     createDonation,
     getOneDonation,
-    getMyDonations
+    getMyDonations,
 } = require('../controllers/donations.controller')
 
 const {
