@@ -38,7 +38,11 @@ async function getOneProject(req, res) {
 async function createProject(req, res) {
     try {
         const project = await Project.create(req.body)
-        const volunteer = await Volunteer.findByPk(req.body.volunteerId)
+        const volunteer = await Volunteer.findOne({
+            where: {
+                memberId: req.body.volunteer
+            }
+        })
         const equipment = await Equipment.create({
             name: req.body.equipmentName,
             description: req.body.equipmentDescription,

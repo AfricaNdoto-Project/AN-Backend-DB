@@ -32,12 +32,12 @@ const Member = connection.define(
             type: DataTypes.STRING,
         },
         idNumber: {
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         phone: {
 			type: DataTypes.INTEGER,
         },
-        adress: {
+        address: {
             type: DataTypes.STRING
         },
         role: {
