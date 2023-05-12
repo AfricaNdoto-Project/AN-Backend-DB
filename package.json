@@ -4,7 +4,8 @@
   "description": "[AfricaNdoto](https://africandoto.org/) it's an idea that was born in 2016 with the goal to provide better opportunities for the kids and families in Tanzania. That idea turns into a NGO that works to improve the future of many people.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
